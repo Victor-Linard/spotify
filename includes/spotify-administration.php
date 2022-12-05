@@ -1,11 +1,12 @@
 <?php
+    date_default_timezone_set('Europe/Paris');
     global $chk;
     if (isset($_POST['ld_spotify_save_result'])) {
         ld_spotify_save_result();
     }
 
     function ld_spotify_save_result() {
-        $ld_spotify_save_result = $_POST['$ld_spotify_save_result'];
+        $ld_spotify_save_result = $_POST['ld_spotify_save_result'];
 
         global $chk;
 
@@ -18,15 +19,14 @@
 
     <link rel="stylesheet" media="screen" href="../wp-content/plugins/ld_spotify/Finder/css/theme.min.css">
 
-    <?php if (isset($_POST['wphw_submit']) && $chk): ?>
+    <?php if (isset($_POST['ld_spotify_save_result']) && $chk): ?>
         <div id="message" class="alert alert-success d-flex m-3" role="alert">
             <i class="fi-check-circle me-2 me-sm-3 lead"></i>
-            <div>Content updated successfully</div>
+            <div>Content updated successfully at <?php echo date("H:i:s"); ?></div>
         </div>
     <?php endif; ?>
 
     <h3>Paramètre Spotify Plugin</h3>
-    <?php echo get_option('ld_spotify_save_result'); ?>
     <form method="post" action="">
         <div class="row">
             <div class="col-auto">
