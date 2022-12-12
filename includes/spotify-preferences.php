@@ -26,26 +26,26 @@
         </div>
     <?php endif; ?>
 
-    <h3>Paramètre Spotify Plugin</h3>
+    <h3>Spotify Plugin Preferences</h3>
     <form method="post" action="">
         <div class="row">
             <div class="col-auto">
-                <span>Enregistrement des recherches : </span>
+                <span>Save search : </span>
             </div>
             <div class="col-auto">
                 <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
-                    <span class="badge bg-faded-success">Actif</span>
+                    <span class="badge bg-faded-success">Active</span>
                 <?php else: ?>
-                    <span class="badge bg-faded-danger">Inactif</span>
+                    <span class="badge bg-faded-danger">Inactive</span>
                 <?php endif; ?>
             </div>
         </div>
         <div class="row">
             <div class="col-auto">
                 <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
-                    <button type="submit" name="ld_spotify_save_result" value="False" class="btn btn-primary btn-sm">Désactiver</button>
+                    <button type="submit" name="ld_spotify_save_result" value="False" class="btn btn-primary btn-sm">Desactivate</button>
                 <?php else: ?>
-                    <button type="submit" name="ld_spotify_save_result" value="True" class="btn btn-primary btn-sm">Activer</button>
+                    <button type="submit" name="ld_spotify_save_result" value="True" class="btn btn-primary btn-sm">Activate</button>
                 <?php endif; ?>
             </div>
         </div>
