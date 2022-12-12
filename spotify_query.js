@@ -8,6 +8,7 @@ function search_request(){
         async: false,
         success: function (data) {
             console.log(data);
+            document.getElementById("results").innerHTML=data;
         },
         error: function (data) {
             console.log(data);
