@@ -17,7 +17,8 @@
 ?>
 <div>
 
-    <link rel="stylesheet" media="screen" href="../wp-content/plugins/ld_spotify/Finder/css/theme.min.css">
+    <link rel="stylesheet" media="screen" href="../wp-content/plugins/ld_spotify/Dashkit/css/libs.bundle.css">
+    <link rel="stylesheet" media="screen" href="../wp-content/plugins/ld_spotify/Dashkit/css/theme.bundle.css">
 
     <?php if (isset($_POST['ld_spotify_save_result']) && $chk): ?>
         <div id="message" class="alert alert-success d-flex m-3" role="alert">
@@ -34,9 +35,9 @@
             </div>
             <div class="col-auto">
                 <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
-                    <span class="badge bg-faded-success">Active</span>
+                    <span class="badge bg-success-soft">Active</span>
                 <?php else: ?>
-                    <span class="badge bg-faded-danger">Inactive</span>
+                    <span class="badge bg-danger-soft">Inactive</span>
                 <?php endif; ?>
             </div>
         </div>
@@ -50,4 +51,7 @@
             </div>
         </div>
     </form>
+
+    <script src="../wp-content/plugins/ld_spotify/Dashkit/js/theme.bundle.js"></script>
+    <script src="../wp-content/plugins/ld_spotify/Dashkit/js/vendor.bundle.js"></script>
 </div>
