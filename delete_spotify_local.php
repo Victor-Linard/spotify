@@ -20,8 +20,7 @@
         $req->bindParam(":id",$_POST['id']);
     }
     else {
-        $req = $db->prepare("DELETE FROM :table;");
-        $req->bindParam(":table",$_POST['table']);
+        $req = $db->prepare("DELETE FROM {$_POST['table']};");
     }
     $req->execute();
     $req = null;

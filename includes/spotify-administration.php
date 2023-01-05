@@ -59,7 +59,7 @@
                 <div class="table-responsive" data-list='{"valueNames": ["tables-datetime", "tables-name", "tables-idartist", "tables-image", "tables-followers", "tables-popularity"]}'>
                     <label for="search-artists">Search : </label>
                     <input type="text" id="search-artists" name="search-artists" class="fuzzy-search" />
-                    <button onclick="delete_all_rows('tracks')" type="submit" name="artists" class="btn btn-outline-danger btn-sm">DELETE ALL</button>
+                    <button onclick="delete_all_rows('artists')" type="submit" name="artists" class="btn btn-outline-danger btn-sm">DELETE ALL</button>
                     <table class="table table-sm">
                         <thead>
                             <tr>
