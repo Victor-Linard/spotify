@@ -5,9 +5,6 @@
 
     include_once 'verify_access_token.php';
 
-    if (!get_latest_access_token())
-        echo renew_access_token();
-    else
-        echo get_latest_access_token();
+    echo get_latest_access_token();
 
 

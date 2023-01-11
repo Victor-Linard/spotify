@@ -2,9 +2,6 @@
 
     function get_latest_access_token() {
         date_default_timezone_set('Europe/Paris');
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
         try {
             $db = new PDO("sqlite:../ld_spotify.db");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -16,14 +13,11 @@
         $req = $db->prepare("SELECT access_token, expires_date FROM access_token WHERE CURRENT_TIMESTAMP < expires_date;");
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
-        return $data['access_token'] ?? false;
+        return $data['access_token'] ?? renew_access_token();
     }
 
     function renew_access_token() {
         date_default_timezone_set('Europe/Paris');
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
         $client_id = '6a48f249630f482caaf9ad05bcf57836';
         $client_secret = 'ded5654dafe6413b87797a8c3985f117';
         $url = 'https://accounts.spotify.com/api/token';
@@ -55,6 +49,6 @@
 
             $req = $db->prepare("INSERT INTO access_token (access_token, expires_date) VALUES ('".$json["access_token"]."', '".$date->format('Y-m-d H:i:s')."')");
             $req->execute();
-            return $json["access_token"];
+            return $json["access_token"] ?? false;
         }
     }
