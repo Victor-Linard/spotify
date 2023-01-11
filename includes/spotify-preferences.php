@@ -1,5 +1,9 @@
 <?php
     date_default_timezone_set('Europe/Paris');
+    require_once 'records_update.php';
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     global $chk;
     if (isset($_POST['ld_spotify_save_result'])) {
         ld_spotify_save_result();
@@ -31,23 +35,55 @@
     <form method="post" action="">
         <div class="row">
             <div class="col-auto">
-                <span>Save search : </span>
-            </div>
-            <div class="col-auto">
-                <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
-                    <span class="badge bg-success-soft">Active</span>
-                <?php else: ?>
-                    <span class="badge bg-danger-soft">Inactive</span>
-                <?php endif; ?>
+                <h4 class="mb-1">
+                    Save search results
+                </h4>
+                <p class="small text-muted mb-3">
+                    Activate save search result if you want your daily search to be more efficient.
+                </p>
+                <div class="btn-group-toggle row gx-2 mb-4">
+                    <div class="col">
+                        <input class="btn-check" onchange="this.form.submit();" name="ld_spotify_save_result"
+                               id="ld_spotify_save_result_true" type="radio" value="True"
+                            <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
+                                checked
+                            <?php endif; ?>
+                        >
+                        <label class="btn w-100 btn-outline-success" for="ld_spotify_save_result_true">
+                            Activate
+                        </label>
+                    </div>
+                    <div class="col">
+                        <input class="btn-check" onchange="this.form.submit();" name="ld_spotify_save_result"
+                               id="ld_spotify_save_result_false" type="radio" value="False"
+                            <?php if (get_option('ld_spotify_save_result') == 'False'): ?>
+                                checked
+                            <?php endif; ?>>
+                        <label class="btn w-100 btn-outline-danger" for="ld_spotify_save_result_false">
+                            Desactivate
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
+        <hr class="mb-4">
         <div class="row">
             <div class="col-auto">
-                <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
-                    <button type="submit" name="ld_spotify_save_result" value="False" class="btn btn-primary btn-sm">Desactivate</button>
-                <?php else: ?>
-                    <button type="submit" name="ld_spotify_save_result" value="True" class="btn btn-primary btn-sm">Activate</button>
-                <?php endif; ?>
+                <h4 class="mb-1">
+                    Local data
+                </h4>
+                <p class="small text-muted mb-3">
+                    Here are some key figures on the records.
+                </p>
+                <p>
+                    Records : <span class="badge bg-info-soft"><?php echo getNbRecords(); ?></span>
+                </p>
+                <p>
+                    Up to date records : <span class="badge bg-success-soft">Secondary</span>
+                </p>
+                <p>
+                    Outdated records : <span class="badge bg-danger-soft">Success</span>
+                </p>
             </div>
         </div>
     </form>
