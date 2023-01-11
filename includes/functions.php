@@ -24,7 +24,7 @@ function ld_spotify_shortcode() {
            minlength="1" maxlength="50" size="30">
     <button class="search_spotify" id="search_spotify" onclick="search_request()">Search</button>
     <style></style>
-    <div class="col-lg-6" id="results">
+    <div id="results">
         
     </div>
     ';
