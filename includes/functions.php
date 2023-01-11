@@ -1,17 +1,32 @@
 <?php
 add_action("admin_menu", "ld_spotify_add_admin_menu");
 
-function ld_spotify_add_admin_menu()
-{
+function ld_spotify_add_admin_menu() {
     add_menu_page(
-            'Spotify Preference', // Title of the page
-            'Spotify Preference', // Text to show on the menu link
-            'manage_options', // Capability requirement to see the link
-        plugin_dir_path(__FILE__) . 'spotify-preferences.php'
+        'Spotify Preferences',
+        'Spotify Preferences',
+        'manage_options',
+        'menuparent',
+        'spotify_preferences'
+    );
+
+    add_submenu_page(
+        'menuparent',
+        'Titre page option 2',
+        'Spotify Administration',
+        'manage_options',
+        'menuenfant1',
+        'spotify_administration'
     );
 }
 
+function spotify_preferences() {
+    include_once(plugin_dir_path(__FILE__) . 'spotify-preferences.php');
+}
 
+function spotify_administration() {
+    include_once(plugin_dir_path(__FILE__) . 'spotify-administration.php');
+}
 // function that runs when shortcode is called
 function ld_spotify_shortcode() {
     $short_code = '
