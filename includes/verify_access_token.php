@@ -1,22 +1,22 @@
 <?php
 
-    function get_latest_access_token() {
+    function get_latest_access_token($path) {
         date_default_timezone_set('Europe/Paris');
         try {
-            $db = new PDO("sqlite:../ld_spotify.db");
+            $db = new PDO("sqlite:".$path);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $pe) {
             die("<br>Erreur de connexion sur ld_spotify :" . $pe->getMessage());
         }
 
-        $req = $db->prepare("SELECT access_token, expires_date FROM access_token WHERE CURRENT_TIMESTAMP < expires_date;");
+        $req = $db->prepare("SELECT access_token, expires_date FROM access_token WHERE datetime(CURRENT_TIMESTAMP, '+1 hour') < expires_date;");
         $req->execute();
         $data = $req->fetch(PDO::FETCH_ASSOC);
-        return $data['access_token'] ?? renew_access_token();
+        return $data['access_token'] ?? renew_access_token($path);
     }
 
-    function renew_access_token() {
+    function renew_access_token($path) {
         date_default_timezone_set('Europe/Paris');
         $client_id = '6a48f249630f482caaf9ad05bcf57836';
         $client_secret = 'ded5654dafe6413b87797a8c3985f117';
@@ -37,7 +37,7 @@
 
         if (isset($json["access_token"])) {
             try {
-                $db = new PDO("sqlite:../ld_spotify.db");
+                $db = new PDO("sqlite:".$path);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch (PDOException $pe) {

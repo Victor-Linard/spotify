@@ -1,5 +1,6 @@
 <?php
-    $token = 'BQC9bV6onyIIPyyNxYxjmP-2bMfXSWrSpefXmejOkQZOotUnuVL0CS1YpMGHUV4KhHwOx770C_kDQoZ9Csodkpkjgf2bOqgz2KGMVM1-p8R4BUIcUkjcVpZBq5-jdScvomI1FEdfYhra-6a8SvuuVB51Fjyk7EqcvHNnWGxjwbTW';
+    require_once 'includes/verify_access_token.php';
+    $token = get_latest_access_token('ld_spotify.db');
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);

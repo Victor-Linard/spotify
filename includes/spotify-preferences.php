@@ -9,6 +9,10 @@
         ld_spotify_save_result();
     }
 
+    if (isset($_POST['update_records'])) {
+        updateRecords();
+    }
+
     function ld_spotify_save_result() {
         $ld_spotify_save_result = $_POST['ld_spotify_save_result'];
 
@@ -68,24 +72,37 @@
         </div>
         <hr class="mb-4">
         <div class="row">
+            <h4 class="mb-1">
+                Local data
+            </h4>
+        </div>
+        <div class="row">
+            <p class="small text-muted mb-3">
+                Here are some key figures on the records.
+            </p>
+        </div>
+        <div class="row">
             <div class="col-auto">
-                <h4 class="mb-1">
-                    Local data
-                </h4>
-                <p class="small text-muted mb-3">
-                    Here are some key figures on the records.
-                </p>
-                <p>
-                    Records : <span class="badge bg-info-soft"><?php echo getNbRecords(); ?></span>
-                </p>
-                <p>
-                    Up to date records : <span class="badge bg-success-soft">Secondary</span>
-                </p>
-                <p>
-                    Outdated records : <span class="badge bg-danger-soft">Success</span>
-                </p>
+                Records : <span class="badge bg-info-soft"><?php echo getNbRecords(); ?></span>
             </div>
         </div>
+        <div class="row">
+            <div class="col-auto">
+                Up to date records : <span class="badge bg-success-soft"><?php echo getNbUpToDateRecords(); ?></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                Outdated records : <span class="badge bg-danger-soft"><?php echo getNbOutdatesRecords(); ?></span>
+            </div>
+        </div>
+        <?php if (getNbOutdatesRecords() > 0): ?>
+        <div class="row">
+            <div class="col-auto">
+                <button type="submit" name="update_records" class="btn btn-primary mb-2">Update</button>
+            </div>
+        </div>
+        <?php endif; ?>
     </form>
 
     <script src="../wp-content/plugins/ld_spotify/Dashkit/js/theme.bundle.js"></script>
