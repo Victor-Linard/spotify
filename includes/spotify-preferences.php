@@ -1,6 +1,7 @@
 <?php
     date_default_timezone_set('Europe/Paris');
     require_once 'records_update.php';
+    require_once 'manage_options.php';
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -16,10 +17,8 @@
     function ld_spotify_save_result() {
         $ld_spotify_save_result = $_POST['ld_spotify_save_result'];
 
-        global $chk;
-
-        if (get_option('ld_spotify_save_result') != trim($ld_spotify_save_result)) {
-            $chk = update_option('ld_spotify_save_result', trim($ld_spotify_save_result));
+        if (get_sqlite_option('ld_spotify_save_result') != trim($ld_spotify_save_result)) {
+            update_sqlite_option(trim($ld_spotify_save_result), 'ld_spotify_save_result');
         }
     }
 ?>
@@ -28,7 +27,7 @@
     <link rel="stylesheet" media="screen" href="../wp-content/plugins/ld_spotify/Dashkit/css/libs.bundle.css">
     <link rel="stylesheet" media="screen" href="../wp-content/plugins/ld_spotify/Dashkit/css/theme.bundle.css">
 
-    <?php if (isset($_POST['ld_spotify_save_result']) && $chk): ?>
+    <?php if (isset($_POST['ld_spotify_save_result'])): ?>
         <div id="message" class="alert alert-success d-flex m-3" role="alert">
             <i class="fi-check-circle me-2 me-sm-3 lead"></i>
             <div>Content updated successfully at <?php echo date("H:i:s"); ?></div>
@@ -49,7 +48,7 @@
                     <div class="col">
                         <input class="btn-check" onchange="this.form.submit();" name="ld_spotify_save_result"
                                id="ld_spotify_save_result_true" type="radio" value="True"
-                            <?php if (get_option('ld_spotify_save_result') == 'True'): ?>
+                            <?php if (get_sqlite_option('ld_spotify_save_result') == 'True'): ?>
                                 checked
                             <?php endif; ?>
                         >
@@ -60,7 +59,7 @@
                     <div class="col">
                         <input class="btn-check" onchange="this.form.submit();" name="ld_spotify_save_result"
                                id="ld_spotify_save_result_false" type="radio" value="False"
-                            <?php if (get_option('ld_spotify_save_result') == 'False'): ?>
+                            <?php if (get_sqlite_option('ld_spotify_save_result') == 'False'): ?>
                                 checked
                             <?php endif; ?>>
                         <label class="btn w-100 btn-outline-danger" for="ld_spotify_save_result_false">

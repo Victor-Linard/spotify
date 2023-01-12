@@ -70,13 +70,13 @@
         foreach ($data as $track) {
             $url = "https://api.spotify.com/v1/tracks/".$track["id_track"];
             $json = runCurl($url);
-            var_dump($json);
-            $req = $db->prepare("UPDATE tracks SET search_date=datetime(CURRENT_TIMESTAMP, '+1 hour'), name=?, id_artist=?, uri=?, preview=?, image=?;");
+            $duration = intval(intval($json['duration_ms'])/1000);
+            $req = $db->prepare("UPDATE tracks SET search_date=datetime(CURRENT_TIMESTAMP, '+1 hour'), name=?, id_artist=?, image=?, duration=? WHERE id_track=?;");
             $req->bindParam(1, $json['name']);
-            $req->bindParam(2, $json['id']);
-            $req->bindParam(3, $json['uri']);
-            $req->bindParam(4, $json['preview_url']);
-            $req->bindParam(5, $json['images'][0]);
+            $req->bindParam(2, $json['artists'][0]['id']);
+            $req->bindParam(3, $json['album']['images'][0]['url']);
+            $req->bindParam(4, $duration);
+            $req->bindParam(5, $track["id_track"]);
             $req->execute();
         }
 
@@ -86,13 +86,14 @@
         $req = null;
 
         foreach ($data as $artist) {
-            $url = "https://api.spotify.com/v1/tracks/".$artist["id_artist"];
+            $url = "https://api.spotify.com/v1/artists/".$artist["id_artist"];
             $json = runCurl($url);
-            $req = $db->prepare("UPDATE artists SET search_date=datetime(CURRENT_TIMESTAMP, '+1 hour'), name=?, followers=?, popularity=?, image=?;");
+            $req = $db->prepare("UPDATE artists SET search_date=datetime(CURRENT_TIMESTAMP, '+1 hour'), name=?, followers=?, popularity=?, image=? WHERE id_artist=?;");
             $req->bindParam(1, $json['name']);
             $req->bindParam(2, $json['followers']['total']);
             $req->bindParam(3, $json['popularity']);
-            $req->bindParam(4, $json['images'][0]);
+            $req->bindParam(4, $json['images'][0]['url']);
+            $req->bindParam(5, $artist["id_artist"]);
             $req->execute();
         }
 
@@ -102,11 +103,13 @@
         $req = null;
 
         foreach ($data as $album) {
-            $url = "https://api.spotify.com/v1/tracks/".$album["id_album"];
+            $url = "https://api.spotify.com/v1/albums/".$album["id_album"];
             $json = runCurl($url);
-            $req = $db->prepare("UPDATE artists SET search_date=datetime(CURRENT_TIMESTAMP, '+1 hour'), name=?, id_artist=?;");
+            $req = $db->prepare("UPDATE albums SET search_date=datetime(CURRENT_TIMESTAMP, '+1 hour'), name=?, id_artist=?, image=? WHERE id_album=?;");
             $req->bindParam(1, $json['name']);
             $req->bindParam(2, $json['artists'][0]['id']);
+            $req->bindParam(3, $json['images'][0]['url']);
+            $req->bindParam(4, $album["id_album"]);
             $req->execute();
         }
     }
