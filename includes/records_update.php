@@ -1,5 +1,7 @@
 <?php
     function getNbRecords() {
+        /*The getNbRecords() function connects to the SQLite database and retrieves the total number of records
+        in the tracks, artists, and albums tables.*/
         try {
             $db = new PDO("sqlite:../wp-content/plugins/ld_spotify/ld_spotify.db");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -15,6 +17,8 @@
     }
 
     function getNbUpToDateRecords() {
+        /*The getNbUpToDateRecords() function connects to the SQLite database and retrieves the total number of records
+         in the tracks, artists, and albums tables that have been searched in the last 30 days (delay for a record to be outdated).*/
         try {
             $db = new PDO("sqlite:../wp-content/plugins/ld_spotify/ld_spotify.db");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,6 +34,8 @@
     }
 
     function getNbOutdatesRecords() {
+        /*The getNbOutdatesRecords() function connects to the SQLite database and retrieves the total number of records
+         in the tracks, artists, and albums tables that have not been searched in the last 30 days (delay for a record to be outdated).*/
         try {
             $db = new PDO("sqlite:../wp-content/plugins/ld_spotify/ld_spotify.db");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -45,6 +51,8 @@
     }
 
     function updateRecords() {
+        /*The updateRecords() function updates the records in the tracks table that have not been searched
+         in the last 30 days by making an API request to Spotify, updating the data and storing it in the database.*/
         date_default_timezone_set('Europe/Paris');
         try {
             $db = new PDO("sqlite:../wp-content/plugins/ld_spotify/ld_spotify.db");
@@ -104,6 +112,7 @@
     }
 
     function runCurl($url) {
+        /*The runCurl() function is used to make a cURL request to a specified URL. */
         date_default_timezone_set('Europe/Paris');
         require_once 'verify_access_token.php';
 

@@ -1,6 +1,8 @@
 <?php
 
     function get_latest_access_token($path) {
+        /*The get_latest_access_token() function retrieves the latest access token from a SQLite database,
+         If the access token is found, it is returned. If not, the renew_access_token() function is called.*/
         date_default_timezone_set('Europe/Paris');
         try {
             $db = new PDO("sqlite:".$path);
@@ -17,6 +19,7 @@
     }
 
     function renew_access_token($path) {
+        /*The renew_access_token() function renews the access token for the Spotify API*/
         date_default_timezone_set('Europe/Paris');
         $client_id = '6a48f249630f482caaf9ad05bcf57836';
         $client_secret = 'ded5654dafe6413b87797a8c3985f117';
