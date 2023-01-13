@@ -24,10 +24,6 @@ function spotify_preferences() {
     include_once(plugin_dir_path(__FILE__) . 'spotify-preferences.php');
 }
 
-function spotify_getdata() {
-    include_once(plugin_dir_path(__FILE__) . 'get_data2.php');
-}
-
 function spotify_administration() {
     include_once(plugin_dir_path(__FILE__) . 'spotify-administration.php');
 }
@@ -38,13 +34,16 @@ function ld_spotify_shortcode() {
     <link rel='stylesheet' media='screen' href='../../../../wp-content/plugins/ld_spotify/Dashkit/css/libs.bundle.css' importance='high'>
     <link rel='stylesheet' media='screen' href='../../../../wp-content/plugins/ld_spotify/Dashkit/css/theme.bundle.css' importance='high'>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js'></script>
-    <script type='text/javascript' src='../../../../wp-content/plugins/ld_spotify/spotify_query.js'></script>
-    <label for='name'>Search:</label>
+    <script type='text/javascript' src='../../../../wp-content/plugins/ld_spotify/spotify_query.js'></script>  
     
-    <input type='text' id='search_bar_spotify' name='search_bar_spotify' required
-           minlength='1' maxlength='50' size='30'>
-    <button class='search_spotify btn btn-primary' id='search_spotify' onclick='search_request()'>Search</button>
-    
+    <div class='row'>
+        <div class='col'>
+            <input  required minlength='1' maxlength='50' id='search_bar_spotify' name='search_bar_spotify' type='text' class='form-control form-control-rounded' placeholder='Enter a track, artist, album...'>
+        </div>
+        <div class='col'>
+            <button class='search_spotify btn btn-primary' id='search_spotify' onclick='search_request()'>Search</button>
+        </div>
+    </div>
     <div id='results'>
     </div>
    

@@ -1,6 +1,6 @@
 function search_request($param=null){
     $.ajax({
-        url: "../../../../wp-content/plugins/ld_spotify/includes/get_data2.php",
+        url: "../../../../wp-content/plugins/ld_spotify/includes/get_data.php",
         method: "POST",
         data: {
             "search_bar_content" : document.getElementById("search_bar_spotify").value,
@@ -8,12 +8,10 @@ function search_request($param=null){
         },
         async: false,
         success: function (data) {
-            //console.log(data);
             document.getElementById("results").innerHTML=data;
         },
         error: function (data) {
             console.log(data);
         }
     });
-};
-
+}

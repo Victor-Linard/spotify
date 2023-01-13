@@ -9,7 +9,6 @@ function delete_single_row(table, id) {
         },
         async: false,
         success: function (data) {
-            console.log(data);
             location.reload();
         },
         error: function (data) {
@@ -28,7 +27,6 @@ function delete_all_rows(table) {
         },
         async: false,
         success: function (data) {
-            console.log(data);
             location.reload();
         },
         error: function (data) {
