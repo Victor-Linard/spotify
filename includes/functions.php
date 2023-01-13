@@ -24,25 +24,33 @@ function spotify_preferences() {
     include_once(plugin_dir_path(__FILE__) . 'spotify-preferences.php');
 }
 
+function spotify_getdata() {
+    include_once(plugin_dir_path(__FILE__) . 'get_data2.php');
+}
+
 function spotify_administration() {
     include_once(plugin_dir_path(__FILE__) . 'spotify-administration.php');
 }
 // function that runs when shortcode is called
 function ld_spotify_shortcode() {
-    $short_code = '
-    <link rel="stylesheet" media="screen" href="../../../../wp-content/plugins/ld_spotify/Finder/css/theme.min.css" importance="high">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../../../../wp-content/plugins/ld_spotify/spotify_query.js"></script>
-    <label for="name">Search:</label>
+    $short_code = "
     
-    <input type="text" id="search_bar_spotify" name="search_bar_spotify" required
-           minlength="1" maxlength="50" size="30">
-    <button class="search_spotify" id="search_spotify" onclick="search_request()">Search</button>
-    <style></style>
-    <div id="results">
-        
+    <link rel='stylesheet' media='screen' href='../../../../wp-content/plugins/ld_spotify/Dashkit/css/libs.bundle.css' importance='high'>
+    <link rel='stylesheet' media='screen' href='../../../../wp-content/plugins/ld_spotify/Dashkit/css/theme.bundle.css' importance='high'>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js'></script>
+    <script type='text/javascript' src='../../../../wp-content/plugins/ld_spotify/spotify_query.js'></script>
+    <label for='name'>Search:</label>
+    
+    <input type='text' id='search_bar_spotify' name='search_bar_spotify' required
+           minlength='1' maxlength='50' size='30'>
+    <button class='search_spotify btn btn-primary' id='search_spotify' onclick='search_request()'>Search</button>
+    
+    <div id='results'>
     </div>
-    ';
+   
+    <script src='../../../../wp-content/plugins/ld_spotify/Dashkit/js/theme.bundle.js'></script>
+    <script src='../../../../wp-content/plugins/ld_spotify/Dashkit/js/vendor.bundle.js'></script>
+    ";
     return $short_code;
 }
 

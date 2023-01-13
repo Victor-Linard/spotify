@@ -1,9 +1,10 @@
-function search_request(){
+function search_request($param=null){
     $.ajax({
-        url: "../../../../wp-content/plugins/ld_spotify/get_data.php",
+        url: "../../../../wp-content/plugins/ld_spotify/includes/get_data2.php",
         method: "POST",
         data: {
-            "search_bar_content" : document.getElementById("search_bar_spotify").value
+            "search_bar_content" : document.getElementById("search_bar_spotify").value,
+            "reload" : $param
         },
         async: false,
         success: function (data) {

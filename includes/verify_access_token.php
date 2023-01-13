@@ -2,8 +2,9 @@
 
     function get_latest_access_token() {
         date_default_timezone_set('Europe/Paris');
+        //var_dump(scandir("./"));
         try {
-            $db = new PDO("sqlite:../ld_spotify.db");
+            $db = new PDO("sqlite:ld_spotify.db");
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $pe) {
@@ -37,7 +38,7 @@
 
         if (isset($json["access_token"])) {
             try {
-                $db = new PDO("sqlite:../ld_spotify.db");
+                $db = new PDO("sqlite:ld_spotify.db");
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
             catch (PDOException $pe) {

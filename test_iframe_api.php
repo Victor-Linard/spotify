@@ -6,7 +6,7 @@
         window.onSpotifyIframeApiReady = (IFrameAPI) => {
             let element = document.getElementById('embed-iframe');
             let options = {
-                width: '400px',
+                width: '250px',
                 height: '150px',
                 uri: 'spotify:track:0SKNkEMV313mE6oYsgVCgm'
             };
