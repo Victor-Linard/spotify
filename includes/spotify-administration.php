@@ -33,6 +33,14 @@
                             <td class="tables-uri">'.$data['uri'].'</td>
                             <td><button onclick="delete_single_row(\'tracks\', \''.$data['id_track'].'\')" type="button" name="track" class="btn btn-outline-danger btn-sm">DELETE</button></td>
                         </tr>';
+            elseif ($table == 'albums')
+                $str .= '<tr>
+                            <th scope="row" class="tables-datetime">'.$data['search_date'].'</th>
+                            <td class="tables-name">'.$data['name'].'</td>
+                            <td class="tables-idartist">'.$data['id_artist'].'</td>
+                            <td class="tables-idtrack">'.$data['id_album'].'</td>
+                            <td><button onclick="delete_single_row(\'albums\', \''.$data['id_album'].'\')" type="button" name="track" class="btn btn-outline-danger btn-sm">DELETE</button></td>
+                        </tr>';
         }
         $req = null;
         $db = null;
@@ -87,7 +95,7 @@
                 </button>
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="table-responsive" data-list='{"valueNames": ["tables-datetime", "tables-name", "tables-id", "tables-image", "tables-previewurl", "tables-uri"]}'>
+                <div class="table-responsive" data-list='{"valueNames": ["tables-datetime", "tables-name", "tables-idtrack", "tables-idartist", "tables-uri"]}'>
                     <label for="search-tracks">Search : </label>
                     <input type="text" id="search-tracks" name="search-tracks" class="fuzzy-search" />
                     <button onclick="delete_all_rows('tracks')" type="button" class="btn btn-outline-danger btn-sm">DELETE ALL</button>
@@ -105,6 +113,36 @@
                         <tbody class="list">
                         <form method="post">
                             <?php echo get_spotify_local_data($db, 'tracks'); ?>
+                        </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Albums
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="table-responsive" data-list='{"valueNames": ["tables-datetime", "tables-name", "tables-idartist", "tables-idalbum"]}'>
+                    <label for="search-tracks">Search : </label>
+                    <input type="text" id="search-tracks" name="search-tracks" class="fuzzy-search" />
+                    <button onclick="delete_all_rows('albums')" type="button" class="btn btn-outline-danger btn-sm">DELETE ALL</button>
+                    <table class="table table-sm">
+                        <thead>
+                        <tr>
+                            <th scope="col"><a href="#" class="text-muted list-sort" data-sort="tables-datetime">#</a></th>
+                            <th scope="col"><a href="#" class="text-muted list-sort" data-sort="tables-name">Name</a></th>
+                            <th scope="col"><a href="#" class="text-muted list-sort" data-sort="tables-idartist">ID Artist</a></th>
+                            <th scope="col"><a href="#" class="text-muted list-sort" data-sort="tables-idalbum">ID Album</a></th>
+                            <th scope="col"><a href="#" class="text-muted list-sort" >Action</a></th>
+                        </tr>
+                        </thead>
+                        <tbody class="list">
+                        <form method="post">
+                            <?php echo get_spotify_local_data($db, 'albums'); ?>
                         </form>
                         </tbody>
                     </table>

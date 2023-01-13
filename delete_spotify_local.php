@@ -1,7 +1,4 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
     if (!isset($_POST['table']) && !isset($_POST['id']) && !isset($_POST['mode'])) {
         echo '$_POST not set';
         exit(1);
