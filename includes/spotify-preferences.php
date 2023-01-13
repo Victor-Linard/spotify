@@ -17,8 +17,8 @@
     function ld_spotify_save_result() {
         $ld_spotify_save_result = $_POST['ld_spotify_save_result'];
 
-        if (get_sqlite_option('ld_spotify_save_result') != trim($ld_spotify_save_result)) {
-            update_sqlite_option(trim($ld_spotify_save_result), 'ld_spotify_save_result');
+        if (get_sqlite_option('ld_spotify_save_result', '../../wordpress/wp-content/plugins/ld_spotify/ld_spotify.db') != trim($ld_spotify_save_result)) {
+            update_sqlite_option(trim($ld_spotify_save_result), 'ld_spotify_save_result', '../../wordpress/wp-content/plugins/ld_spotify/ld_spotify.db');
         }
     }
 ?>
@@ -48,7 +48,7 @@
                     <div class="col">
                         <input class="btn-check" onchange="this.form.submit();" name="ld_spotify_save_result"
                                id="ld_spotify_save_result_true" type="radio" value="True"
-                            <?php if (get_sqlite_option('ld_spotify_save_result') == 'True'): ?>
+                            <?php if (get_sqlite_option('ld_spotify_save_result', '../../wordpress/wp-content/plugins/ld_spotify/ld_spotify.db') == 'True'): ?>
                                 checked
                             <?php endif; ?>
                         >
@@ -59,7 +59,7 @@
                     <div class="col">
                         <input class="btn-check" onchange="this.form.submit();" name="ld_spotify_save_result"
                                id="ld_spotify_save_result_false" type="radio" value="False"
-                            <?php if (get_sqlite_option('ld_spotify_save_result') == 'False'): ?>
+                            <?php if (get_sqlite_option('ld_spotify_save_result', '../../wordpress/wp-content/plugins/ld_spotify/ld_spotify.db') == 'False'): ?>
                                 checked
                             <?php endif; ?>>
                         <label class="btn w-100 btn-outline-danger" for="ld_spotify_save_result_false">

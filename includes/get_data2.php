@@ -40,7 +40,7 @@
         return $modal_html;
     }
 
-    function create_info_card($type, $info){
+    function create_info_card($type, $info, $save){
         $html_return = '';
         $content='';
 
@@ -50,7 +50,7 @@
                                     <span class="fe fe-users"></span> ' . $value[2] . '
                                     <span class="fe fe-trending-up"></span> ' . $value[4] . '
                                   </p>';
-            }elseif ($type=='album'){
+            }elseif ($type=='album' && $save=='True'){
 
                 try {
                     $db = new PDO("sqlite:../ld_spotify.db");
@@ -126,10 +126,10 @@
     error_reporting(E_ALL);
     include_once 'verify_access_token.php';
 
-    //$token = get_latest_access_token();
+    $token = get_latest_access_token('../ld_spotify.db');
 
     //echo $token;
-    $token = 'BQCAPVaXu0TT7wmtAiVhjndzsUszdLIBPpGzKQ4bK3hx7fcTY1iiDiNOeJiEtRDvyWJFuqE8f0Qr1G0brL1RXNVVeetw3c2VnNkm2XxQ-gFBle7Rifi1NohFL6NCjm5iaWhip1FOoHNvGXoM4EHc595DOdKTpChA6axVmo4cVra_';
+    //$token = 'BQBwnc4KBzIDnq3wnkX3p40fVszU6ym15WX5ZdAe3DbHW9j6_DCWAROyCzzSc0Ig7SEYf7nyTKK3oIArGQthKBzCGvEyK2n6h4f418k0NH7o99LigRGNrKi300Xurobum9Gw8daa5jRCgy8GA77U6OQD6foZIH3ScW3tUBJnYbJG';
 
     $img_default = "../../../../wp-content/plugins/ld_spotify/Finder/img/Spotify_no_image_users.png";
     $search_bar_content = $_POST["search_bar_content"];
@@ -192,8 +192,9 @@ if((!isset($array_artists_id) && !isset($array_tracks_id) && !isset($array_album
     $url = "https://api.spotify.com/v1/search?q=" . $search_bar_content . "&type=track%2Cartist%2Cplaylist%2Calbum";
     $ch = curl_init();
     $headers = array('Accept: application/json', 'Content-Type: application/json', 'Authorization: Bearer ' . $token);
-
-    $save = 'True';
+    include_once 'manage_options.php';
+    //$save = 'True';
+    $save = get_sqlite_option('ld_spotify_save_result', '../ld_spotify.db');
 
     curl_setopt($ch, CURLOPT_URL, $url); # URL to post to
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); # return into a variable
@@ -271,7 +272,7 @@ if((!isset($array_artists_id) && !isset($array_tracks_id) && !isset($array_album
             $result = curl_exec($ch); # run!
             curl_close($ch);
             $json_2 = json_decode($result, true);
-            $image = isset($json_2['images'][0]) ? $json['images'][0]['url'] : '../../../../wp-content/plugins/ld_spotify/Finder/img/Spotify_no_image_users.png';
+            $image = isset($json['images'][0]) ? $json['images'][0]['url'] : '../../../../wp-content/plugins/ld_spotify/Finder/img/Spotify_no_image_users.png';
 
             $sql = 'INSERT INTO artists(name,id_artist,followers,image,popularity) '
                 . 'VALUES(:name,:id_artist,:followers,:image,:popularity)';
@@ -326,7 +327,7 @@ if((!isset($array_artists_id) && !isset($array_tracks_id) && !isset($array_album
             $result = curl_exec($ch); # run!
             curl_close($ch);
             $json_2 = json_decode($result, true);
-            $image = isset($json_2['images'][0]) ? $json['images'][0]['url'] : '../../../../wp-content/plugins/ld_spotify/Finder/img/Spotify_no_image_users.png';
+            $image = isset($json['images'][0]) ? $json['images'][0]['url'] : '../../../../wp-content/plugins/ld_spotify/Finder/img/Spotify_no_image_users.png';
 
             $sql = 'INSERT INTO artists(name,id_artist,followers,image,popularity) '
                 . 'VALUES(:name,:id_artist,:followers,:image,:popularity)';
@@ -493,7 +494,7 @@ if(isset($array_artists_id)) {
         $best_results .= '</div>';
     }
 
-   $artists_result.= create_info_card("artist", $array_artists_id);
+   $artists_result.= create_info_card("artist", $array_artists_id, $save);
 
 }
 $best_results .= '</div>';
@@ -517,7 +518,7 @@ if(isset($array_tracks_id)) {
               </div>
     ';
     }
-    $tracks_result.= create_info_card("track", $array_tracks_id);
+    $tracks_result.= create_info_card("track", $array_tracks_id, $save);
     $best_results .= '</div>';
 }
 
@@ -550,7 +551,7 @@ if(isset($array_albums_id)) {
               
     ';
     }
-    $albums_result .= create_info_card('album', $array_albums_id);
+    $albums_result .= create_info_card('album', $array_albums_id, $save);
 
 }
     $HTML_var.= '<div class="tab-content" id="pills-tabContent">

@@ -1,7 +1,7 @@
 <?php
-    function get_sqlite_option($option) {
+    function get_sqlite_option($option, $path) {
         try {
-            $db = new PDO("sqlite:../wp-content/plugins/ld_spotify/ld_spotify.db");
+            $db = new PDO("sqlite:".$path);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $pe) {
@@ -14,9 +14,9 @@
         return $data['option_value'] ?? false;
     }
 
-    function update_sqlite_option($option_value, $option_name) {
+    function update_sqlite_option($option_value, $option_name, $path) {
         try {
-            $db = new PDO("sqlite:../wp-content/plugins/ld_spotify/ld_spotify.db");
+            $db = new PDO("sqlite:".$path);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch (PDOException $pe) {
